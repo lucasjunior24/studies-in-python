@@ -43,7 +43,7 @@ cn();
 def cn2():
     global canalGlobal
     canalGlobal = "Texto canal variável global 2";
-    
+    print(canalGlobal);
 cn2();
 # acessando variavel com escopo global
 print(canalGlobal);

@@ -1,18 +1,30 @@
 #!/bin/python3
-# Complete the 'fizzBuzz' function below.
+
+import os
 #
-# The function accepts INTEGER n as parameter.
+# Complete the 'compareTriplets' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY a
+#  2. INTEGER_ARRAY b
 #
 
-def miniMaxSum(arr):
+def compareTriplets(a, b):
     # Write your code here
-    x = sum(arr)
-    without_less = x - min(arr)
-    without_more =  x - max(arr)
-    print(without_more, without_less) 
-
+    alice = 0
+    bob = 0
+    for al in range(len(a)):
+        if a[al] > b[al]:
+            alice += 1
+        elif a[al] < b[al]:
+            bob += 1
+    return [alice, bob]
+    
+    
 if __name__ == '__main__':
-    # arr = list(map(int, input().rstrip().split()))
-    arr = [1, 2, 3, 4, 5]
+    a = [5, 6, 7, 10]
+    b = [5, 7, 4, 11]
 
-    miniMaxSum(arr)
+    result = compareTriplets(a, b)
+    print(result)

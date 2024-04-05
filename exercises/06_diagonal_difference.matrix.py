@@ -24,7 +24,7 @@ def diagonalDifference(arr):
     # for i in range(len(arr)):
     #     letf_right += arr[i][i]
     #     right_left += arr[i][len(arr)-1-i]
-
+ 
 
     print(letf_right, right_left, abs(letf_right - right_left))
     return abs(letf_right - right_left)

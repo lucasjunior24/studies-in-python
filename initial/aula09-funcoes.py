@@ -1,4 +1,4 @@
-
+from typing import TypeVar
 print("funcao")
 print("funcao com parametro")
 n1 = 23
@@ -11,9 +11,11 @@ somar()
 
 print("")
 print("funcao com parametro")
-def subtrair(n1, n2):
+T = TypeVar("T")
+def subtrair(n1: T, n2: T) -> T:
     soma = n1 - n2
     print("Subtração = " + str(soma))
+    return soma
 
 subtrair(50, 20)
 
@@ -41,7 +43,7 @@ superSoma(50, 20, 30, 10, 32)
 print("")
 minhaLista = [3, 43, 53, 4, 3]
 print("funcao com lista como paramentro")
-def superSoma(lista):
+def superSoma(lista: list[int]):
     soma = 0
 
     for n in lista:

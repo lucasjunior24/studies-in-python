@@ -46,7 +46,7 @@ class OrderState(ABC):
         self.order = order
 
     @abstractmethod
-    def pendding(self) -> None: pass
+    def pendding(self) -> None: ...
     
     @abstractmethod
     def approve(self) -> None: pass

@@ -1,7 +1,10 @@
 fn main() {
   let notas: [f32; 4] = [6.5; 4];
   let inteiro: usize = 0;
+  let variavel: u16 = 300;
 
+  println!("valor = {}, tamanho = {} bytes", variavel, std::mem::size_of_val(&variavel));
+  
   println!("{}", notas[inteiro]);
 
   for indice in 0..notas.len() {

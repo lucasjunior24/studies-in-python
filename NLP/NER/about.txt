@@ -1,1 +1,6 @@
 use python 3.9
+
+
+zip modelo
+
+zip -r ./modelo.zip ./modelo

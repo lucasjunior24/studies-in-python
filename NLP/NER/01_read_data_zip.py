@@ -9,11 +9,11 @@ with zipfile.ZipFile("./texts.zip", "r") as zip:
 # print(texto)
 
 import spacy
-import en_core_web_sm
+import pt_core_news_sm
 
 
 print("loading modelo")
-modelo_ner = en_core_web_sm.load()
+modelo_ner = pt_core_news_sm.load()
 
 doc = modelo_ner(texto)
 

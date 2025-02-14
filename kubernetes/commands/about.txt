@@ -16,3 +16,6 @@ kubectl delete pod db-noticias
 
 acessar terminal do pod
 kubectl exec -it db-noticias -- bash 
+
+para atualizar um pod existente, é necessario deletar o antigo e aplicar o pod de novo
+

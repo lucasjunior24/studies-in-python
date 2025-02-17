@@ -1,0 +1,5 @@
+
+requests
+python-dotenv
+langchain-ollama
+langchain[groq]

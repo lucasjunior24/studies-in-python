@@ -19,3 +19,11 @@ kubectl exec -it db-noticias -- bash
 
 para atualizar um pod existente, é necessario deletar o antigo e aplicar o pod de novo
 
+um deployment é uma camada acima de um replicaset, ele também gerencia pods
+mas mostra versão com o historico dos replicasets
+
+kubectl get rs
+exibe deploymentss e replicasets
+
+delata replicasets
+kubectl delete -f portal-noticias-replicaset.yaml

@@ -1,9 +1,4 @@
 #!/bin/python3
-
-import math
-import os
-import random
-import re
 import sys
 
 #
@@ -15,27 +10,23 @@ import sys
 
 def breakingRecords(scores):
     # Write your code here
-    MIN_FIXED = sys.maxsize
-    max_score = 0
-    min_score = MIN_FIXED
+    # Write your code here
+    max_score = min_score = scores[0]
     print(min_score)
-    total_min = 0
-    total_max = 0
+    max_count = min_count = 0
     for score in scores:
-        if score > max_score:
-            if max_score > 0:
-                total_max = total_max + 1
+        if min_score < score:
+            min_count += 1
+            min_score = score
+
+        elif max_score > score:
+            max_count += 1
             max_score = score
             
-        if score < min_score:
-            if min_score < MIN_FIXED:
-                total_min = total_min + 1
-            min_score = score
-            print(min_score)
-    return [total_max, total_min]
+    return [min_count, max_count]
 
-
-result = breakingRecords([3, 4, 21, 36, 10, 28, 35, 5, 24, 42])
+params = [3, 4, 21, 36, 10, 28, 35, 5, 24, 42]
+result = breakingRecords(params)
 print(result)
 
 assert result[0] == 4

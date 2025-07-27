@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  python_app_1:
+    build: ./app
+    environment:
+      HOSTNAME: python_app_1
+    ports:
+      - 5001:5000
+  python_app_2:
+    build: ./app
+    environment:
+      HOSTNAME: python_app_2
+    # Add more app instances as needed
+    ports:
+      - 5000:5000
+      
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - python_app_1
+      - python_app_2

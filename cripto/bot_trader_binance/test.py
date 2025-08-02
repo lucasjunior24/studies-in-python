@@ -1,2 +1,2 @@
-quantity = int(0.986 * 100) / 100
+quantity = int(0.01170427 * 1000) / 1000
 print(quantity)

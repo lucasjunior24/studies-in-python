@@ -1,31 +1,25 @@
-import os
 import time
 from datetime import datetime
 import logging
 
 import pandas as pd
 
-from binance.client import Client
 from binance.enums import *
 
-from src.config import API_KEY, API_SECRET
 from src.logger import createLogOrder
+from src.client_binance import client
 
 
 QUANTITY = 10.0
 # Inicializa o cliente da Binance
 # print(API_KEY)
-client = Client(api_key=API_KEY, api_secret=API_SECRET)
+
 
 status = client.get_account_status()
 print(status)
 
 # STOCK_CODE = "SOL"
 # OPERATION_CODE = "SOLBRL"
-STOCK_CODE = "DOGE"
-OPERATION_CODE = "DOGEBRL"
-CANDE_PERIOD = Client.KLINE_INTERVAL_15MINUTE
-TRADED_QUANTITY = 10
 
 logging.basicConfig(
     filename="src/logs/trading_bot.log",
@@ -38,7 +32,12 @@ class BinanceTraderBot:
     last_trader_decision: bool
 
     def __init__(
-        self, stock_code, operation_code, traded_quantity, porcentage, candle_period
+        self,
+        stock_code: str,
+        operation_code: str,
+        traded_quantity: float | int,
+        porcentage: int,
+        candle_period: str,
     ):
         self.stock_code = stock_code
         self.operation_code = operation_code
@@ -166,8 +165,9 @@ class BinanceTraderBot:
             # print(step_size)
             if quantity < 10:
                 logging.warning(
-                    f"A quantidade dispovel é menor que 10: total disponivel {quantity}"
+                    f"{self.operation_code.upper()}: A quantidade dispovel é menor que 10: total disponivel {quantity}"
                 )
+                self.actual_trade_position = False
                 return False
             vender = 10 if quantity > 10 else quantity
             order_sell = self.client.create_order(
@@ -220,11 +220,9 @@ class BinanceTraderBot:
         print("-----------------------------")
         print(f"Executando ({datetime.now().strftime("%Y-%m-%d %H:%M:%S")})")
         print(
-            f"Posição atual: {"Comprado" if MATrader.actual_trade_position else "Vendido"}"
+            f"Posição atual: {"Comprado" if self.actual_trade_position else "Vendido"}"
         )
-        print(
-            f"Balanço atual: {MATrader.last_stock_acount_balance} | ({self.stock_code})"
-        )
+        print(f"Balanço atual: {self.last_stock_acount_balance} | ({self.stock_code})")
         ma_trade_description = self.get_moving_average_trade_strategy()
 
         self.last_trader_decision = ma_trade_description
@@ -253,7 +251,7 @@ class BinanceTraderBot:
         info = client.get_exchange_info()
         data = {}
         for s in info["symbols"]:
-            if s["symbol"] == OPERATION_CODE:
+            if s["symbol"] == self.operation_code:
                 for f in s["filters"]:
 
                     if f["filterType"] == "LOT_SIZE":
@@ -268,17 +266,3 @@ class BinanceTraderBot:
                         break
                 break
         return data
-
-
-MATrader = BinanceTraderBot(
-    stock_code=STOCK_CODE,
-    operation_code=OPERATION_CODE,
-    traded_quantity=TRADED_QUANTITY,
-    porcentage=100,
-    candle_period=CANDE_PERIOD,
-)
-
-
-while 1:
-    MATrader.execute()
-    time.sleep(60)

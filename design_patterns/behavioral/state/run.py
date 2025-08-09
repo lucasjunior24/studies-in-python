@@ -1,4 +1,7 @@
-print("O State é um padrão de projeto comportamental que permite que um objeto altere seu comportamento quando seu estado interno muda. Parece como se o objeto mudasse de classe.")
+print(
+    "O State é um padrão de projeto comportamental que permite que um objeto altere seu comportamento quando seu estado interno muda."
+    "Parece como se o objeto mudasse de classe."
+)
 
 from abc import ABC, abstractmethod
 
@@ -15,7 +18,6 @@ class Pedido:
         self.state.pedding()
         self.state.approve()
         self.state.reject()
-    
 
 
 class Order:
@@ -47,12 +49,14 @@ class OrderState(ABC):
 
     @abstractmethod
     def pendding(self) -> None: ...
-    
+
     @abstractmethod
-    def approve(self) -> None: pass
-    
+    def approve(self) -> None:
+        pass
+
     @abstractmethod
-    def reject(self) -> None: pass
+    def reject(self) -> None:
+        pass
 
     def __str__(self) -> str:
         return self.__class__.__name__
@@ -61,12 +65,12 @@ class OrderState(ABC):
 class PaymentPendding(OrderState):
     def pendding(self) -> None:
         print("Pagamento já pendente, não pode fazer nada.")
-    
-    def approve(self) -> None: 
+
+    def approve(self) -> None:
         self.order.state = PaymentApproved(self.order)
         print("Pagamento Aprovado.")
-    
-    def reject(self) -> None: 
+
+    def reject(self) -> None:
         self.order.state = PaymentRejected(self.order)
         print("Pagamento Recusado.")
 
@@ -75,10 +79,10 @@ class PaymentApproved(OrderState):
     def pendding(self) -> None:
         self.order.state = PaymentPendding(self.order)
         print("Pagamento Recusado!")
-    
+
     def approve(self) -> None:
         print("Pagamento já está aprovado, não pode fazer nada.")
-    
+
     def reject(self) -> None:
         self.order.state = PaymentRejected(self.order)
         print("Pagamento Recusado.")
@@ -87,10 +91,10 @@ class PaymentApproved(OrderState):
 class PaymentRejected(OrderState):
     def pendding(self) -> None:
         print("Pagamento já recusado, não pode fazer nada.")
-    
+
     def approve(self) -> None:
         print("Pagamento já recusado, não posso recusar novamente.")
-    
+
     def reject(self) -> None:
         print("Pagamento já recusado, não posso recusar novamente.")
 

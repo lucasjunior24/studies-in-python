@@ -19,4 +19,4 @@ def run_trader_sol():
 
     while 1:
         MATraderSOL.execute()
-        time.sleep(60)
+        time.sleep(100)

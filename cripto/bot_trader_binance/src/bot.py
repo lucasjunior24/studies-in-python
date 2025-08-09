@@ -1,7 +1,7 @@
 import time
 from datetime import datetime
 import logging
-
+from time import sleep
 import pandas as pd
 
 from binance.enums import *
@@ -59,7 +59,15 @@ class BinanceTraderBot:
         self.stock_data = self.get_stock_data_close_price_open_time()
 
     def get_updated_account_data(self):
-        return self.client.get_account()
+        try:
+            return self.client.get_account()
+        except Exception as e:
+            print(e)
+            logging.error(
+                f"{self.operation_code.upper()}: Error ao pegar info da conta. \n Error lançado: {e}\n"
+            )
+            sleep(10)
+            return self.client.get_account()
 
     def get_last_stock_acount_balance(self):
         balances = self.account_data["balances"]

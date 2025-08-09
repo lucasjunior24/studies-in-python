@@ -19,4 +19,4 @@ def run_trader_doge():
 
     while 1:
         MATraderDOGE.execute()
-        time.sleep(60)
+        time.sleep(100)
